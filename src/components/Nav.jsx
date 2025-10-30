@@ -4,6 +4,7 @@ import { FaSearch } from "react-icons/fa";
 import { FaShoppingCart } from "react-icons/fa";
 import { dataContext } from '../context/UserContext';
 import { food_items } from '../food';
+import { useSelector } from 'react-redux';
 
 const Nav = () => {
    const {input, setInput, selectedCategory, setSelectedCategory, showcard, setShowcard} = useContext(dataContext)
@@ -20,6 +21,9 @@ const Nav = () => {
    const handleInputChange = (e) => {
      setInput(e.target.value);
    };
+   const cartItems = useSelector((state) => state.cart.items);
+   console.log(cartItems);
+
 
   return (
     <div className='w-full h-[100px] flex justify-between items-center px-6 md:px-10 bg-blue-300 sticky top-0 z-50'>
@@ -45,7 +49,7 @@ const Nav = () => {
 
       {/* Cart Icon */}
       <div className='w-[60px] h-[60px] bg-white rounded-3xl flex items-center justify-center shadow-md relative' onClick={()=> setShowcard(true)}>
-        <span className='absolute top-0 right-3 font-semibold text-sm text-red-600'>0</span>
+        <span className='absolute top-0 right-3 font-semibold text-sm text-red-600'>{cartItems.length}</span>
         <FaShoppingCart  size={30} className='text-green-600 cursor-pointer' />
       </div>
     </div>
